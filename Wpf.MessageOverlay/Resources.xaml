@@ -1,0 +1,234 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:messageOverlay="clr-namespace:Wpf.MessageOverlay"
+                    xmlns:vm="clr-namespace:Wpf.MessageOverlay.ViewModels"
+                    mc:Ignorable="d">
+
+    <messageOverlay:DataTemplateSelector x:Key="DataTemplateSelector" />
+
+    <DataTemplate x:Key="MainViewTemplate"
+                  DataType="{x:Type vm:IMainViewModel}">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Margin="5"
+                    BorderThickness="1"
+                    BorderBrush="DarkGray">
+
+                <StackPanel HorizontalAlignment="Stretch">
+
+                    <TextBlock Margin="10"
+                               FontWeight="Bold"
+                               Text="Top Content" />
+
+                    <ContentControl HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Top"
+                                 VerticalContentAlignment="Top"
+                                 Content="{Binding HeaderPane, Mode=OneWay}"
+                                 ContentTemplateSelector="{StaticResource DataTemplateSelector}" />
+                    
+               </StackPanel>
+                
+            </Border>
+
+            <Border Grid.Row="1"
+                    Margin="5,0,5,5"
+                    BorderThickness="1"
+                    BorderBrush="DarkGray">
+
+                <StackPanel HorizontalAlignment="Stretch">
+
+                    <TextBlock Margin="10"
+                               FontWeight="Bold"
+                               Text="Middle Content" />
+
+                    <ContentControl HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                VerticalAlignment="Top"
+                                VerticalContentAlignment="Top"
+                                Content="{Binding ContentPane, Mode=OneWay}"
+                                ContentTemplateSelector="{StaticResource DataTemplateSelector}" />
+                
+                </StackPanel>
+                
+            </Border>
+
+            <Border Grid.Row="2"
+                    Margin="5,0,5,5"
+                    BorderThickness="1"
+                    BorderBrush="DarkGray">
+                
+                <StackPanel HorizontalAlignment="Stretch">
+
+                    <TextBlock Margin="10"
+                               FontWeight="Bold"
+                               Text="Bottom Content" />
+                    
+                    <ContentControl Margin="10"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                VerticalAlignment="Top"
+                                VerticalContentAlignment="Top"
+                                Content="{Binding  FooterPane, Mode=OneWay}"
+                                ContentTemplateSelector="{StaticResource DataTemplateSelector}" />
+
+                </StackPanel>
+                
+            </Border>
+
+        </Grid>
+
+    </DataTemplate>
+    
+    <DataTemplate x:Key="HeaderViewTemplate"
+                  DataType="{x:Type vm:IHeaderViewModel}">
+        
+        <Grid Margin="10">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Time (ms):"
+                       VerticalAlignment="Center"/>
+            
+            <TextBox x:Name="durationText"
+                     Grid.Column="1"
+                     Margin="10,0,10,0"
+                     MinWidth="200"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Center"
+                     Text="{Binding Duration, TargetNullValue=''}" />
+            
+            <Button x:Name="clickButton"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Width="100"
+                    Content="Click"
+                    Command="{Binding ClickCommand, Mode=OneWay}" />
+
+        </Grid>
+        
+    </DataTemplate>
+
+    <DataTemplate x:Key="ContentViewTemplate"
+                  DataType="{x:Type vm:IContentViewModel}">
+        <Grid Margin="10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Message:"
+                       VerticalAlignment="Center"/>
+
+            <TextBox x:Name="messageText"
+                     Grid.Column="1"
+                     Margin="10,0,10,0"
+                     MinWidth="200"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Center"
+                     Text="{Binding Message, Mode=TwoWay}" />
+
+            <Button x:Name="clickButton"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Width="100"
+                    Content="Click"
+                    Command="{Binding ClickCommand, Mode=OneWay}" />
+
+        </Grid>
+        
+    </DataTemplate>
+
+    <DataTemplate x:Key="FooterViewTemplate"
+                  DataType="{x:Type vm:IFooterViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ContentMessageViewTemplate"
+                  DataType="{x:Type vm:IContentMessageViewModel}">
+        
+        <Grid Margin="50">
+            
+            <Border Background="LawnGreen">
+                
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="MessageTextBlock"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Stretch"
+                               Margin="10"
+                               Text="{Binding Message, Mode=OneWay}" />
+
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center">
+
+                        <Button x:Name="CloseButton"
+                            Content="Close"
+                            Padding="5"
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Command="{Binding CloseCommand, Mode=OneWay}"/>
+
+                        <Button x:Name="CloseWithBusyButton"
+                            Content="Show Busy &amp; Close"
+                            Padding="5"
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Command="{Binding BusyAndCloseCommand, Mode=OneWay}"/>
+
+                    </StackPanel>
+
+                </Grid>
+                
+            </Border>
+        
+        </Grid>
+        
+    </DataTemplate>
+
+</ResourceDictionary>
